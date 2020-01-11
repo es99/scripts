@@ -1,13 +1,4 @@
 #!/home/engels/anaconda3/bin/python
-
-"""
-Script python que lê da linha de comando (sys.argv) o nome da cidade e o estado e devolve
-informações relacionadas ao tempo (temperatura, humidade, pressão, etc...) o script se conecta
-a uma api que retorna dados json, os dados são filtrados no próprio script e depos mostrados
-na tela através da função print()
-"""
-
-
 import json, requests, sys
 
 tk = '3abcc3f6dc83435f101f560fc2b8e3f8'

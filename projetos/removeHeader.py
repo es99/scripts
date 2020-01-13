@@ -10,25 +10,24 @@ import sys, os, csv
 path = sys.argv[1]
 os.chdir(path)
 
+os.makedirs('modificados', exist_ok=True)
 
-for arquivo in os.listdir(path):
-    if arquivo.endswith('.csv'):
-        arquivoFile = open(arquivo)
-        arquivoReader = csv.reader(arquivoFile)
-        novoNome = arquivo[:-4] + '-modificado.csv'
-        escritaFile = open(novoNome, 'w', newline='')
-        escritaWriter = csv.writer(escritaFile)
-
-        for row in arquivoReader:
-            if arquivoReader.line_num == 1:
-                continue
-            else:
-                escritaWriter.writerow(row)
-
-        arquivoFile.close()
-        escritaFile.close()
-
-    else:
+for csvFilename in os.listdir('.'):
+    if not csvFilename.endswith('.csv'):
         continue
 
-#FIM
+    print('removendo a primeira linha do arquivo ' + csvFilename + '...')
+    csvRows = []
+    arquivoFile = open(csvFilename)
+    arquivoReader = csv.reader(arquivoFile)
+    for row in arquivoReader:
+        if arquivoReader.line_num == 1:
+            continue
+        csvRows.append(row)
+    arquivoFile.close()
+
+    escritaFile = open(os.path.join('modificados', csvFilename), 'w', newline='')
+    escritaObj = csv.writer(escritaFile)
+    for linha in csvRows:
+        escritaObj.writerow(linha)
+    escritaFile.close()
